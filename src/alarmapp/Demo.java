@@ -22,15 +22,15 @@ public class Demo {
         }
 
         System.out.println("Seconds till alarm: " + seconds_to_wait);
-
+        final long[] waitTime = {seconds_to_wait};
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(() -> {
-            System.out.println("It's been " + seconds_to_wait + " seconds");
+            System.out.println("It's been " + waitTime[0] + " seconds");
             System.out.println("'Alarm Ringing' Solve the problem to turn off");
             quiz.genmathproblem();
             System.out.println("Alarm Turned off");
             scheduler.shutdown();
-        }, seconds_to_wait, TimeUnit.SECONDS);
+        }, waitTime[0], TimeUnit.SECONDS);
 
         scan.close();
     }
