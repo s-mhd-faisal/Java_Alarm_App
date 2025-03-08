@@ -8,7 +8,7 @@ public class Demo {
         Scanner scan = new Scanner(System.in);
         Randommath quiz = new Randommath(scan); 
         String altime;
-        Calctime calc = new Calctime(scan);
+        Calctime calc = new Calctime();
         long secondsToWait;
 
         while (true) {
@@ -31,7 +31,7 @@ public class Demo {
             scheduler.shutdown();
             scan.close();
 
-        }, waitTime[0], TimeUnit.SECONDS);
+        }, 5, TimeUnit.SECONDS);
 
     }
 }

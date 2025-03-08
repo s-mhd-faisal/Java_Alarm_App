@@ -5,13 +5,12 @@ import java.time.format.*;
 import java.util.Scanner;
 
 public class Calctime {
-    private Scanner scan;
     private LocalTime nowTime, alarmTime;
     private DateTimeFormatter formatter;
     private long secondsToWait;
 
-    public Calctime(Scanner scan) {
-        this.scan = scan;
+    public Calctime() {
+        
     }
 
     public long calcseconds(String unFormTime) {

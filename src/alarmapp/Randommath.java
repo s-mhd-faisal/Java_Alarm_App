@@ -7,14 +7,16 @@ import java.util.Scanner;
 public class Randommath {
 	private final Random random = new Random();
     private Scanner scan;
+    private AlarmSoundPlayer player;
     
     public Randommath(Scanner scan) {
 		// TODO Auto-generated constructor stub
     	this.scan=scan;
+    	player = new AlarmSoundPlayer();
+
 	}
 
     public void genmathproblem() {
-    	
     	final String operators[] = {"+", "-", "*", "/"};
     	int op1, op2,operator, result = 0,answer = 0;
         operator = random.nextInt(4);
@@ -27,7 +29,7 @@ public class Randommath {
             op1 = random.nextInt(100)+1;
             op2 = random.nextInt(10)+1;
         }
-
+        player.playSound();
         while (true) {
             try {
                 System.out.printf("%d %s %d = : ", op1, operators[operator], op2);
@@ -59,6 +61,7 @@ public class Randommath {
                 // Check the answer
                 if (answer == result) {
                     System.out.println("Correct Answer!");
+                    player.stopSound();
                     break; // Exit loop when answer is correct
                 } else {
                     System.out.println("Wrong! Try again.");
