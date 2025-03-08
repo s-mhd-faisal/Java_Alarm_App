@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class Demo {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Randommath quiz = new Randommath(); 
+        Randommath quiz = new Randommath(scan); 
         String altime;
         Calctime calc = new Calctime(scan);
         long secondsToWait;
@@ -20,7 +20,7 @@ public class Demo {
             }
             System.out.println("Try again!");
         }
-
+        System.out.println("Seconds till alarm "+ secondsToWait);
         final long[] waitTime = {secondsToWait};
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(() -> {
@@ -29,8 +29,9 @@ public class Demo {
             quiz.genmathproblem();
             System.out.println("Alarm Turned off");
             scheduler.shutdown();
+            scan.close();
+
         }, waitTime[0], TimeUnit.SECONDS);
 
-        scan.close();
     }
 }

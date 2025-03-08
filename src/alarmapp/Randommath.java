@@ -5,31 +5,36 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Randommath {
-    private Random random = new Random();
+	private final Random random = new Random();
+    private Scanner scan;
+    
+    public Randommath(Scanner scan) {
+		// TODO Auto-generated constructor stub
+    	this.scan=scan;
+	}
 
     public void genmathproblem() {
-        Scanner scan = new Scanner(System.in);
-        String operators[] = {"+", "-", "*", "/"};
-        int operand = random.nextInt(4);
-        int op1, op2, result = 0;
-        int answer = 0;
-
-        // Generate numbers based on the operator
-        if (operand == 0 || operand == 1) {
+    	
+    	final String operators[] = {"+", "-", "*", "/"};
+    	int op1, op2,operator, result = 0,answer = 0;
+        operator = random.nextInt(4);
+    	
+       // Generate numbers based on the operator
+        if (operator == 0 || operator == 1) {
             op1 = random.nextInt(100);
             op2 = random.nextInt(100);
         } else {
-            op1 = random.nextInt(100);
-            op2 = random.nextInt(10) + 1; // Ensure no division by zero
+            op1 = random.nextInt(100)+1;
+            op2 = random.nextInt(10)+1;
         }
 
         while (true) {
             try {
-                System.out.printf("%d %s %d = : ", op1, operators[operand], op2);
+                System.out.printf("%d %s %d = : ", op1, operators[operator], op2);
                 answer = scan.nextInt();
 
                 // Calculate the correct result
-                switch (operators[operand]) {
+                switch (operators[operator]) {
                     case "+":
                         result = op1 + op2;
                         break;
@@ -40,7 +45,12 @@ public class Randommath {
                         result = op1 * op2;
                         break;
                     case "/":
-                        result = op1 / op2;
+                    	if(op1<op2) {
+                    		int temp = op1;
+                    		op1 = op2;
+                    		op2 = temp;
+                    	}
+                    	result = op1/op2;
                         break;
                     default:
                         System.out.println("Error");
@@ -57,12 +67,8 @@ public class Randommath {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Please enter a valid integer.");
                 scan.next(); // Clear invalid input
-            } catch (ArithmeticException e) {
-                System.out.println("Math error occurred! Regenerating problem.");
-                return;
-            }
+            } 
             
         }
-        scan.close();
     }
 }

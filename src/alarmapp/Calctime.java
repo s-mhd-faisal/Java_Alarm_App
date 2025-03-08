@@ -21,7 +21,7 @@ public class Calctime {
         formatter = DateTimeFormatter.ofPattern("HH:mm");
     	
     	try {
-            
+
             alarmTime = LocalTime.parse(unFormTime, formatter);  // May throw DateTimeParseException
             secondsToWait = Duration.between(nowTime, alarmTime).getSeconds();
             
