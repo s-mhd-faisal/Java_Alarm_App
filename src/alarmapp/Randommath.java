@@ -61,6 +61,7 @@ public class Randommath {
                 System.out.println("Math error occurred! Regenerating problem.");
                 return;
             }
+            
         }
         scan.close();
     }

@@ -9,20 +9,19 @@ public class Demo {
         Randommath quiz = new Randommath(); 
         String altime;
         Calctime calc = new Calctime(scan);
-        long seconds_to_wait;
+        long secondsToWait;
 
         while (true) {
             System.out.println("What time should alarm ring (HH:mm) :");
             altime = scan.nextLine();
-            seconds_to_wait = calc.calcseconds(altime);
-            if (seconds_to_wait >= 0) {
+            secondsToWait = calc.calcseconds(altime);
+            if (secondsToWait >= 0) {
                 break;
             }
             System.out.println("Try again!");
         }
 
-        System.out.println("Seconds till alarm: " + seconds_to_wait);
-        final long[] waitTime = {seconds_to_wait};
+        final long[] waitTime = {secondsToWait};
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(() -> {
             System.out.println("It's been " + waitTime[0] + " seconds");
