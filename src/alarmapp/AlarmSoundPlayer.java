@@ -9,7 +9,7 @@ public class AlarmSoundPlayer {
 	
 	public void playSound() {
 		try {
-			File file = new File("C:\\Users\\faiza\\eclipse-workspace\\Java_Alarm_App\\giorno_theme.wav");
+			File file = new File("resources/giorno_theme.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			clip = AudioSystem.getClip();
 			clip.open(inputStream);
