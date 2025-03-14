@@ -4,14 +4,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class Demo {
+public class AlarmApp {
 	private Scanner scan;
 	private Randommath  quiz;
 	private Calctime calc;
 	private ScheduledExecutorService scheduler;
 
 	
-	public Demo(){
+	public AlarmApp(){
 		scan = new Scanner(System.in);
 		quiz = new Randommath(scan);
 		calc = new Calctime();
@@ -23,7 +23,7 @@ public class Demo {
     
     public static void main(String[] args) {
     	
-    	Demo app = new Demo();
+    	AlarmApp app = new AlarmApp();
     	app.run();
     }
     
