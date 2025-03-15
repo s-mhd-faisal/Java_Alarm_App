@@ -2,39 +2,33 @@ package alarmapp;
 
 import java.time.*;
 import java.time.format.*;
-import java.util.Scanner;
 
 public class Calctime {
-    private LocalTime nowTime, alarmTime;
-    private DateTimeFormatter formatter;
-    private long secondsToWait;
-    private FileWrite write;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    private final FileWrite write;
+
     public Calctime() {
-        
+        write = new FileWrite();
     }
 
     public long calcseconds(String unFormTime) {
-    	
-    
-    	nowTime = LocalTime.now();
-        formatter = DateTimeFormatter.ofPattern("HH:mm");
-    	
-    	try {
+        try {
+            LocalTime nowTime = LocalTime.now();
+            LocalTime alarmTime = LocalTime.parse(unFormTime, FORMATTER); // May throw DateTimeParseException
 
-            alarmTime = LocalTime.parse(unFormTime, formatter);  // May throw DateTimeParseException
-            secondsToWait = Duration.between(nowTime, alarmTime).getSeconds();
-            write = new FileWrite();
-            
-            // Adjust if the time is for the next day
-        if (secondsToWait < 0) {
-            secondsToWait += 86400; // 24 hours in seconds
-        }
-        write.writeFile(unFormTime);
-    	}catch (DateTimeParseException e) {  // Catch invalid time input
+            long secondsToWait = Duration.between(nowTime, alarmTime).getSeconds();
+
+            // If the time is for the next day, adjust by adding 24 hours
+            if (secondsToWait < 0) {
+                secondsToWait += 86400; // 24 hours in seconds
+            }
+
+            write.writeFile(unFormTime);
+            return secondsToWait;
+
+        } catch (DateTimeParseException e) {  // Catch invalid time input
             System.out.println("Invalid time format! Please enter in HH:mm (24-hour) format.");
             return -1; // Indicate an error so the user can try again
         }
-
-        return secondsToWait;
     }
 }
